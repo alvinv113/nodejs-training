@@ -1,20 +1,25 @@
-const argvs = process.argv
-//console.log(argvs);
-const argv= argvs.slice(2)
-const myOperation= argv[0]; 
+const calculate = require("./myOperations");
+const operation = process.argv[3];
+const a = +process.argv[2];
+const b = +process.argv[4];
 
-const operator1 = parseInt(argv[1]);
-const operator2 = parseInt(argv[2]);
-if(myOperation==="add"){
-    console.log("The addition of two number "+ ' is '+ (operator1+operator2));
+switch (operation) {
+  case "+":
+    console.log(calculate.addition(a, b));
+    break;
+  case "-":
+    console.log(calculate.subtraction(a, b));
+    break;
+  case "*":
+    console.log(calculate.multiplication(a, b));
+    break;
+  case "/":
+    console.log(calculate.division(a, b));
+    break;
+  case "%":
+    console.log(calculate.modulus(a, b));
+    break;
+  default:
+    console.log("Choose a right operation, must be in the form of (numOne opt numTwo)");
+    break;
 }
-if(myOperation==="sub"){
-    console.log("The substraction of two number "+ ' is '+ (operator1-operator2));
-}
-if(myOperation==="mult"){
-    console.log("The multiplication of two number "+ ' is '+ (operator1*operator2));
-}
-if(myOperation==="div"){
-    console.log("The division of two number "+ ' is '+ (operator1/operator2));
-}
- 
