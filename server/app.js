@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // get all routes from the routes folder and the its file
 app.use(require("./routes/bookRoutes"));
+app.use(require("./routes/user"))
 
 app.listen(port, () => {
   console.log("server is running on port :", port);

@@ -2,11 +2,11 @@ const post = (req, res, next) => {
   const { book_name, book_author, book_publication, released_data, version } =
     req.body;
   if (
-    !book_name ||
-    !book_author ||
-    !book_publication ||
-    !released_data ||
-    !version
+    !book_name.trim() ||
+    !book_author.trim() ||
+    !book_publication.trim() ||
+    !released_data.trim() ||
+    version<0
   ) {
     res.send("Invalid Book details !");
   } else {
