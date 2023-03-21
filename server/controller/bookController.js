@@ -20,17 +20,12 @@ const appRemove = async (req, res) => {
 const appPut = async (req, res) => {
   try {
     const { version, released_data, book_name } = req.body;
-    const updateBook = await book.updateOne(
-      { book_name },
-      {
-        $set: {
-          version,
-          released_data,
-        },
+    const checkifBookexist = await book.findOne({ book_name });
+    if (checkifBookexist) {
+      if (checkifBookexist.version !== version) {
+        const updateBook = await book.updateOne({book_name},{ version , released_data});
       }
-    );
-
-    console.log(version);
+    }
     res.send("updated");
   } catch (error) {
     console.log(error);
@@ -41,15 +36,20 @@ const appPost = async (req, res) => {
   try {
     const { book_name, book_author, book_publication, released_data, version } =
       req.body;
-    let bookData = new book({
-      book_name,
-      book_author,
-      book_publication,
-      released_data,
-      version,
-    });
-    let result = await bookData.save();
-    res.send("running successfully");
+    const checkifBookexist = await book.find({ book_name });
+    if (checkifBookexist) {
+      res.send("Book already exist");
+    } else {
+      let bookData = new book({
+        book_name,
+        book_author,
+        book_publication,
+        released_data,
+        version,
+      });
+      let result = await bookData.save();
+      res.send("running successfully");
+    }
     // console.log(result);
   } catch (error) {
     console.log(error);
